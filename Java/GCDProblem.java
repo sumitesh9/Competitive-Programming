@@ -63,7 +63,7 @@ public class GCDProblem {
 		- variable/function pneumonics must make sense
  * 
  */
-class Solver extends GCDProblem {
+class Solver extends GCDProblem{
 	/*
 	 * Logic goes here ...s
 	 * Add to the global variables after processing the input

@@ -3,8 +3,10 @@ class Hello
 {
 	public static void main(String[]args)
 	{
-	   Scanner S=new Scanner(System.in);
-	   int t=S.nextInt();
-	   System.out.println("You inputted the number"+" "+t);
+		Long l = 128l;
+		Long l1 = 128l;
+
+       System.out.println(l==l1);
+
 	}
 }

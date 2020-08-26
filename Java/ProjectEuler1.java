@@ -1,85 +1,180 @@
-/*
- * No package must be added here because some Online Judges don't support it
- * please remove, if any.
- * 
- */
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-/*
- * Only classes with 'Main' name are accepted in CodeChef and some other online judges
- */
+import java.util.*;
+import java.io.*;
+import java.math.BigInteger;
 public class ProjectEuler1 {
-	/*
-	 * In a Programming contest, you are expected to print the output at the
-	 * end, so `output` variable will hold all the processed results till the
-	 * end
-	 */
+    static long mod = (long) Math.pow(10, 9) + 7;
+    static FastScanner f = new FastScanner(System.in);
+    static Scanner S = new Scanner(System.in);
+    public static void main(String[] args)throws IOException {
+        int i = 1;
+        long sum1 = 25502500;
+        long sum2 = 0;
+        while(i <= 100) {
+            sum2 += (i * i);
+            i++;
+        }
+        pn(sum1 - sum2);
+    }
+        
+/******************************END OF MAIN PROGRAM*******************************************/
+    // Fast Scanner Alternative of Scanner 
+    // Uses Implementation of BufferedReader Class
+    public static class FastScanner {
+        BufferedReader br;
+        StringTokenizer st;
+        FastScanner(InputStream stream) {
+            try {
+                br = new BufferedReader(new
+                    InputStreamReader(stream));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        String next() {
+            while (st == null || !st.hasMoreTokens()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+        String nextLine()throws IOException {
+            return br.readLine();
+        }
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+        double nextDouble() {
+            return Double.parseDouble(next());
+        }
+    }
+    
+    // Print in console
+    static void pn(Object o){System.out.println(o);}
+    static void p(Object o){System.out.print(o);}
+    static void pni(Object o){System.out.println(o);System.out.flush();}
 
-	// Program's starting point
-	public static void main(String[] args) {
+    // Pair class in java
+    static class Point implements Comparator<Point>{
+        int x;int y;
+        Point(int x,int y) {
+            this.x=x;
+            this.y=y;
+        }
+        Point(){}
+        public int compare(Point a, Point b){
+            if (a.x == b.x) 
+                return a.y - b.y;
+            return a.x - b.x;
+        }
+    }
 
-		/*
-		 * A Scanner class slows down Input/Output a LOT ,thereby increasing
-		 * your code execution time , Hence for best results that is Fast I/O
-		 * try to use BufferedReader
-		 */
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		/*
-		 * Generally Code Chef, Hacker Rank gives X number of test cases so we
-		 * process the input for each.
-		 */
-		final int cases;
-		try {
-			/*
-			 * Logic of the program must be separated from the meta code to
-			 * increase readability and help debugging easier
-			 * Also note that Solver object is created inside for loop to
-			 * avoid multiple object creation that drastically increases 
-			 * execution time and memory usage
-			 */
-			cases=Integer.parseInt(br.readLine());
-			Solver solver = new Solver();
-			for (int i = 0; i < cases; i++) {				
-				solver.solve(Long.parseLong(br.readLine()));
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-}
-/*
- * Some basic rules while coding in Programming Contests:
- * Try to follow at least 80% of them
-	Correctness
-		- final declaration for required data types
-		- avoid Object creation 
-		- Scanner slows down, use InputReader
-		- avoid too many static functions	
-	Efficiency
-		- use library functions as much as possible		
-		- assertEquals("RESULT", functionToCall())
-	Debugging-ability
-		- avoid too many global variables 
-		- Separate logic from meta-processing
-		- variable/function pneumonics must make sense
- * 
- */
-class Solver extends ProjectEuler1{
-	/*
-	 * Logic goes here ...
-	 * Add to the global variables after processing the input
-	 * Maybe reverse a string or parse to an integer or , etc.
-	 */
-	public void solve(long x) {		
-               long three=(x-1)/3;
-               long five=(x-1)/5;
-               long fifteen=(x-1)/15;
-               long res=((6+(three-1)*3)*three)/2;
-               res+=((10+(five-1)*5)*five)/2;
-               res-=((30+(fifteen-1)*15)*fifteen)/2;
-               System.out.println(res);
-	}
+    //GCD of two integers
+    static int gcd(int a, int b) {
+        if(b == 0) return a;
+        else {
+            return gcd(b, a % b);
+        }
+    }
+    // Input int array
+    static int[] inpint(int n) {
+        int arr[] = new int[n];
+        for(int i = 0; i < n; i++) 
+            arr[i] = f.nextInt();
+        return arr;
+    }
+
+    //Input long array
+    static long[] inplong(int n) {
+        long arr[] = new long[n];
+        for(int i = 0; i < n; i++) 
+            arr[i] = f.nextLong();
+        return arr;
+    }
+
+    // GCD of a array of integers
+    static int gcdarray(int a[]) {
+        int res = a[0];
+        for(int i = 1; i < a.length; i++) {
+            res = gcd(a[i] , res);
+        }
+        return res;
+    }
+    
+    // Return boolean sieve of first n prime nos.
+    static boolean[] sieve(int n) {
+        boolean isprime[] = new boolean[n + 1];
+        for(int i = 0; i <= n;++i) {
+            isprime[i] = true;
+        }
+        isprime[0] = false;
+        isprime[1] = false;
+        for(int i = 2; i * i <= n; ++i) {
+             if(isprime[i] == true) {               
+                 for(int j = i * i; j <= n;j += i)
+                     isprime[j] = false;
+            }
+        }
+        return isprime;
+    }
+
+    // Return HashSet of factors of a number
+    static HashSet<Long> factors(long n) {
+        HashSet<Long> hs = new HashSet<Long>();
+        for(long i = 1; i <= (long)Math.sqrt(n); i++) {
+            if(n % i == 0) {
+                hs.add(i);
+                hs.add(n / i);
+            }
+        }
+        return hs;
+    }
+
+    //Is n prime ?
+    static boolean isPrime(int n) {
+        if(n == 1) return false;
+        int i = 2;
+        while((i * i) <= n) {
+            if(n % i == 0) return false;
+            i += 1;
+        }
+        return true;
+    }
+
+    // Gives next (Lexicographical) permutation of String
+    public static String nextPerm(String s) {
+        StringBuffer sb = new StringBuffer(s);
+        String ans = "No Successor";
+        int ii = -1 , jj = -1;
+        for(int i = 0; i < s.length() - 1; i++) {
+            if((int)s.charAt(i) < (int)s.charAt(i + 1))
+                ii = i;
+        }
+        for(int j = ii + 1; j < s.length() && j != 0; j++) {
+            if((int)s.charAt(j) > (int)s.charAt(ii))
+                jj = j;
+        }
+        if(ii == -1)
+            return ans;
+        else {
+        char tempi = s.charAt(ii);
+        char tempj = s.charAt(jj);
+        sb.setCharAt(jj , tempi);
+        sb.setCharAt(ii , tempj);
+        StringBuffer sub = new StringBuffer(sb.substring(ii + 1));
+        sub.reverse();
+        int v = sub.length();
+        while(v-- > 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        sb.append(sub);
+        ans = sb.toString();
+        return ans;
+        }
+    }
 }

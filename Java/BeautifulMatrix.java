@@ -72,28 +72,28 @@ public class BeautifulMatrix {
 		- variable/function pneumonics must make sense
  * 
  */
-class Solver extends BeautifulMatrix{
+class Solver extends BeautifulMatrix {
 	/*
 	 * Logic goes here ...
 	 * Add to the global variables after processing the input
 	 * Maybe reverse a string or parse to an integer or , etc.
 	 */
 	public void solve(int arr[][]) {		
-               int r=0,c=0;
-               for(int i=0;i<5;i++)
+               int r = 0 , c = 0;
+               for(int i = 0; i < 5 ; i++)
                {
-               	for(int j=0;j<5;j++)
+               	for(int j = 0 ; j < 5 ; j++)
                	{
-               		if(arr[i][j]==1)
+               		if(arr[i][j] == 1)
                		{
-               			r=i;
-               			c=j;
+               			r = i;
+               			c = j;
                			break;
                		}
                	}
                }
                r++;
                c++;
-               System.out.println((Math.abs(r-3)+Math.abs(c-3)));
+               System.out.println((Math.abs(r - 3) + Math.abs(c - 3)));
 	}
 }

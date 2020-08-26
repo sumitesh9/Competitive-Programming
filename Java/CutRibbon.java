@@ -1,105 +1,121 @@
-/*
- * No package must be added here because some Online Judges don't support it
- * please remove, if any.
- * 
- */
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
-/*
- * Only classes with 'Main' name are accepted in CodeChef and some other online judges
- */
+import java.io.*;
 public class CutRibbon {
+    static long mod = (long) Math.pow(10, 9) + 7;
+    public static void main(String[] args) {
+        FastScanner f = new FastScanner(System.in);
+        int n = f.nextInt();
+        int a = f.nextInt();
+        int b = f.nextInt();
+        int c = f.nextInt();
+        int z = 0;
+        int temp = 0;
+        int res = 0;
+        for(int x = 0; x <= n; x++) {
+            for(int y = 0; y <= n; y++) {
+                z = (n - a*x - b*y) / c;
+                temp = x + y + z;
+                if(a*x + b*y + c*z == n && z >= 0 && z <= n)
+                    res = temp > res ? temp : res;
+            }
+        }
+        pn(res);
+    }
+        
+/******************************END OF MAIN PROGRAM*******************************************/
+    // Fast Scanner Alternative of Scanner 
+    // Uses Implementation of BufferedReader Class
+    public static class FastScanner {
+        BufferedReader br;
+        StringTokenizer st;
+        FastScanner(InputStream stream) {
+            try {
+                br = new BufferedReader(new
+                    InputStreamReader(stream));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        String next() {
+            while (st == null || !st.hasMoreTokens()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+        double nextDouble() {
+            return Double.parseDouble(next());
+        }
+    }
+    
+    // Print in console
+    static void pn(Object o){System.out.println(o);}
+    static void p(Object o){System.out.print(o);}
+    static void pni(Object o){System.out.println(o);System.out.flush();}
 
-	/*
-	 * In a Programming contest, you are expected to print the output at the
-	 * end, so `output` variable will hold all the processed results till the
-	 * end
-	 */
+    //GCD of two integers
+    static int gcd(int a, int b) {
+        if(b == 0) return a;
+        else {
+            return gcd(b, a % b);
+        }
+    }
 
-	// Program's starting point
-	public static void main(String[] args) {
+    // GCD of a array of integers
+    static int gcdarray(int a[]) {
+        int res = a[0];
+        for(int i = 1; i < a.length; i++) {
+            res = gcd(a[i] , res);
+        }
+        return res;
+    }
+    
+    // Return boolean sieve of first n prime nos.
+    static boolean[] sieve(int n) {
+        boolean isprime[] = new boolean[n + 1];
+        for(int i = 0; i <= n;++i) {
+            isprime[i] = true;
+        }
+        isprime[0] = false;
+        isprime[1] = false;
+        for(int i = 2; i * i <= n; ++i) {
+             if(isprime[i] == true) {               
+                 for(int j = i * i; j <= n;j += i)
+                     isprime[j] = false;
+            }
+        }
+        return isprime;
+    }
 
-		/*
-		 * A Scanner class slows down Input/Output a LOT ,thereby increasing
-		 * your code execution time , Hence for best results that is Fast I/O
-		 * try to use BufferedReader
-		 */
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		/*
-		 * Generally Code Chef, Hacker Rank gives X number of test cases so we
-		 * process the input for each.
-		 */
-		final int cases=1;
-		try {
-			/*
-			 * Logic of the program must be separated from the meta code to
-			 * increase readability and help debugging easier
-			 * Also note that Solver object is created inside for loop to
-			 * avoid multiple object creation that drastically increases 
-			 * execution time and memory usage
-			 */
-			Solver solver = new Solver();
-			for (int i = 0; i < cases; i++) {				
-				solver.solve(br.readLine());
-			}
+    // Return HashSet of factors of a number
+    static HashSet<Long> factors(long n) {
+        HashSet<Long> hs = new HashSet<Long>();
+        for(long i = 1; i <= (long)Math.sqrt(n); i++) {
+            if(n % i == 0) {
+                hs.add(i);
+                hs.add(n / i);
+            }
+        }
+        return hs;
+    }
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-}
-/*
- * Some basic rules while coding in Programming Contests:
- * Try to follow at least 80% of them
-	Correctness
-		- final declaration for required data types
-		- avoid Object creation 
-		- Scanner slows down, use InputReader
-		- avoid too many static functions	
-	Efficiency
-		- use library functions as much as possible		
-		- assertEquals("RESULT", functionToCall())
-	Debugging-ability
-		- avoid too many global variables 
-		- Separate logic from meta-processing
-		- variable/function pneumonics must make sense
- * 
- */
-class Solver extends CutRibbon{
-
-	/*
-	 * Logic goes here ...
-	 * Add to the global variables after processing the input
-	 * Maybe reverse a string or parse to an integer or , etc.
-	 */
-	public void solve(String input) {		
-               int n,a,b,c;
-               String s[]=input.split(" ");
-               n=Integer.parseInt(s[0]);
-               a=Integer.parseInt(s[1]);
-               b=Integer.parseInt(s[2]);
-               c=Integer.parseInt(s[3]);
-               int dp[];              
-               dp=new int[n+1];
-               Arrays.fill(dp,Integer.MIN_VALUE);
-               dp[0]=0;
-               for(int i=1; i<=n; i++) {
-               if(i>=a)
-               {
-               dp[i]=Math.max(dp[i], dp[i-a]+1);
-               }
-               if(i>=b)
-               {
-                dp[i]=Math.max(dp[i], dp[i-b]+1);
-               }
-               if(i>=c)
-               {
-            	dp[i]=Math.max(dp[i], dp[i-c]+1);
-               }
-               }
-               System.out.println(dp[n]);
-	}
+    //Is n prime ?
+    static boolean isPrime(int n) {
+        if(n == 1) return false;
+        int i = 2;
+        while((i * i) <= n) {
+            if(n % i == 0) return false;
+            i += 1;
+        }
+        return true;
+    }
 }

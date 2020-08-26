@@ -79,11 +79,11 @@ class Solver extends WrongSubtraction{
              String s[]=input.split(" ");
              long n=Long.parseLong(s[0]);
              long k=Long.parseLong(s[1]);
-             while(k-->0)
+             while(k --> 0)
              {
-             	long d=n%10;
-             	if(d==0)
-             	    n/=10;
+             	long d = n % 10;
+             	if(d == 0)
+             	    n /= 10;
                 else
                 	n--;
              }
